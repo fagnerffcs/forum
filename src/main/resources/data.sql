@@ -1,4 +1,4 @@
-INSERT INTO tb_usuario(nome, email, senha) VALUES('Aluno', 'aluno@email.com', '123456');
+INSERT INTO tb_usuario(nome, email, senha) VALUES('Aluno', 'aluno@email.com', '$2a$10$g39maqJ1/BtIAtPlI5aTi.Mjpl50UgW3i8Dau2iDtFUuEROWkYjWG');
 
 INSERT INTO tb_curso(nome, categoria) VALUES('Spring Boot', 'Programação');
 INSERT INTO tb_curso(nome, categoria) VALUES('HTML 5', 'Front-end');
