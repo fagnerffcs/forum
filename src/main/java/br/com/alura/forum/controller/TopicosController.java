@@ -7,6 +7,8 @@ import br.com.alura.forum.dto.TopicoDto;
 import br.com.alura.forum.modelo.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -38,6 +40,7 @@ public class TopicosController {
 
     //Not a good place to use cacheable since the list of topics are always changing
     @GetMapping
+    @Operation(security = {@SecurityRequirement(name="bearer-key")})
     @Cacheable(value = "topicList")
     public Page<TopicoDto> list(@RequestParam(required = false) String nomeCurso,
                                  @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable paginacao){
@@ -51,6 +54,7 @@ public class TopicosController {
     }
 
     @PostMapping
+    @Operation(security = {@SecurityRequirement(name="bearer-key")})
     @Transactional
     @CacheEvict(value = "topicList", allEntries = true)
     public ResponseEntity<TopicoDto> save(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriComponentsBuilder){
@@ -70,6 +74,7 @@ public class TopicosController {
     }
 
     @PutMapping("/{id}")
+    @Operation(security = {@SecurityRequirement(name="bearer-key")})
     @Transactional
     @CacheEvict(value = "topicList", allEntries = true)
     public ResponseEntity<TopicoDto> update(@PathVariable Long id, @RequestBody @Valid UpdateTopicoForm form){
@@ -82,6 +87,7 @@ public class TopicosController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(security = {@SecurityRequirement(name="bearer-key")})
     @Transactional
     @CacheEvict(value = "topicList", allEntries = true)
     public ResponseEntity delete(@PathVariable Long id){
